@@ -1,35 +1,20 @@
-# Stage 1: Build the application
-FROM eclipse-temurin:17-jdk-jammy as builder
+# Use an official OpenJDK runtime as a parent image
+FROM eclipse-temurin:17-jdk-jammy
 
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Maven Wrapper and project files
-COPY .mvn/ .mvn
-COPY mvnw .
+# Copy the Maven project files
 COPY pom.xml .
 COPY src ./src
 
-# Make sure the mvnw script is executable
-RUN chmod +x mvnw
+# Download dependencies and build the application
+RUN apt-get update && apt-get install -y maven && \
+    mvn dependency:go-offline && \
+    mvn clean package -DskipTests
 
-# Build the application using Maven
-RUN ./mvnw clean package -DskipTests
-
-# Stage 2: Run the application
-FROM eclipse-temurin:17-jre-jammy
-
-# Set the working directory
-WORKDIR /app
-
-# Copy the built JAR file from the builder stage
-COPY --from=builder /app/target/learn-0.0.1-SNAPSHOT.jar app.jar
-
-# Expose the port your application will run on
+# Expose the port the app runs on
 EXPOSE 8080
 
-# Set environment variables (optional, can be overridden by Render or Docker)
-ENV SPRING_PROFILES_ACTIVE=production
-
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Command to run the application
+CMD ["java", "-jar", "target/learn-0.0.1-SNAPSHOT.jar"]
