@@ -17,28 +17,28 @@ public class Movie {
     @Column(name = "id", columnDefinition = "UUID DEFAULT gen_random_uuid()", nullable = false, updatable = false)
     private UUID id; // UUID primary key
 
-    @Column(name = "name", nullable = false) // NOT NULL constraint
-    private String name; // Movie name
+    @Column(name = "name", nullable = false) 
+    private String name; 
 
-    @Column(name = "movie_rated") // No NOT NULL constraint
-    private String movieRated; // Movie rating (e.g., PG-13)
+    @Column(name = "movie_rated") 
+    private String movieRated; 
 
-    @Column(name = "run_length") // No NOT NULL constraint
-    private String runLength; // Run length (e.g., 2h 32min)
+    @Column(name = "run_length") 
+    private String runLength; 
 
-    @Column(name = "genres") // No NOT NULL constraint
-    private String genres; // Genres (e.g., Action; Crime; Drama)
+    @Column(name = "genres") 
+    private String genres; 
 
-    @Column(name = "release_date") // No NOT NULL constraint
-    private String releaseDate; // Release date (e.g., 18 July 2008)
+    @Column(name = "release_date") 
+    private String releaseDate; 
 
-    @Column(name = "rating") // No NOT NULL constraint
-    private double rating; // Rating (e.g., 9.0)
+    @Column(name = "rating") 
+    private double rating; 
 
-    @Column(name = "num_raters") // No NOT NULL constraint
-    private int numRaters; // Number of raters (e.g., 2224522)
+    @Column(name = "num_raters") 
+    private int numRaters; 
 
-    // Default constructor (required by JPA)
+   
     public Movie() {
     }
 
