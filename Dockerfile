@@ -4,11 +4,13 @@ FROM eclipse-temurin:17-jdk-jammy as builder
 # Set the working directory
 WORKDIR /app
 
-# Copy the Maven build files
+# Copy the Maven Wrapper and build files
+COPY mvnw .
+COPY .mvn .mvn
 COPY pom.xml .
 COPY src ./src
 
-# Build the application using Maven
+# Build the application using Maven Wrapper
 RUN ./mvnw clean package -DskipTests
 
 # Stage 2: Run the application
